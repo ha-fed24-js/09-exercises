@@ -6,6 +6,7 @@ async function countryClick() {
 
 	console.log('Data från API', data)
 	printCountryNames(data)
+	findFirstAfricanCountry(data)
 }
 
 function printCountryNames(countries) {
@@ -14,6 +15,20 @@ function printCountryNames(countries) {
 		console.log('-- ' + country.name)
 	})
 	console.log(' ')
+}
+
+function findFirstAfricanCountry(countries) {
+	function isAfrican(country) {
+		return country.continent === 'Africa'
+	}
+
+	// const found = countries.find(country => country.continent === 'Africa')
+	const found = countries.find(isAfrican)
+	if( found ) {
+		console.log('Första afrikanska landet är: ' + found.name)
+	} else {
+		console.log('Det finns inga afrikanska länder!')
+	}
 }
 
 export { countryClick }
