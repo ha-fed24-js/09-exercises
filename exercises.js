@@ -12,8 +12,11 @@ fortuneButton.addEventListener('click', async () => {
 		const data = await response.json()
 		console.log('Data från API:', data)
 		const advice = data.slip.advice
+		const adviceId = data.slip.id
 		// console.log(advice)
 		fortuneCookie.innerText = advice
+
+		addAdviceToList(adviceId, advice)
 
 	} catch(error) {
 		const message = 'Aj aj! Det gick inte att skicka request till API:et. Felet är: ' + error.message
@@ -21,3 +24,10 @@ fortuneButton.addEventListener('click', async () => {
 		fortuneCookie.innerText = message
 	}
 })
+
+function addAdviceToList(id, advice) {
+	const fortuneList = document.querySelector('#fortune-list')
+	const li = document.createElement('li')
+	li.innerText = `[${id}] ${advice} `
+	fortuneList.append(li)
+}
