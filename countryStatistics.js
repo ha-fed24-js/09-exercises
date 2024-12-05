@@ -7,6 +7,7 @@ async function countryClick() {
 	console.log('Data från API', data)
 	printCountryNames(data)
 	findFirstAfricanCountry(data)
+	womenInAustralia(data)
 }
 
 function printCountryNames(countries) {
@@ -25,10 +26,29 @@ function findFirstAfricanCountry(countries) {
 	// const found = countries.find(country => country.continent === 'Africa')
 	const found = countries.find(isAfrican)
 	if( found ) {
-		console.log('Första afrikanska landet är: ' + found.name)
+		printCountryData('Första afrikanska landet är: ' + found.name)
 	} else {
-		console.log('Det finns inga afrikanska länder!')
+		printCountryData('Det finns inga afrikanska länder!')
 	}
+}
+
+function womenInAustralia(countries) {
+	// hitta objektet för Australien
+	// se om vi kan få ut antal kvinnor ur det
+	const australia = countries.find(country => country.name === 'Australia')
+	if( australia ) {
+		let women = australia.population * australia.pFemale
+		women = Math.round(women)
+		printCountryData(`Det finns ${women} kvinnor i Australien.`)
+	} else {
+		printCountryData('Vi kunde inte hitta Australien')
+	}
+}
+
+function printCountryData(message) {
+	const countryData = document.querySelector('#country-data')
+	countryData.innerText = message
+	console.log(message)
 }
 
 export { countryClick }
